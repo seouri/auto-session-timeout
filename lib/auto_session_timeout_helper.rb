@@ -1,5 +1,5 @@
 module AutoSessionTimeoutHelper
-  def auto_session_timeout_js(options={})
+  def auto_session_timeout_js(options = {})
     frequency = options[:frequency] || 60
     verbosity = options[:verbosity] || 2
     code = <<JS

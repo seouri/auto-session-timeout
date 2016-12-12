@@ -29,17 +29,22 @@ After installing, tell your application controller to use auto timeout:
       ...
     end
 
-You will also need to insert this line inside the body tags in your
+Add the following to app/assets/javascripts/application.js:
+
+    //= require auto-session-timeout
+
+You will also need to insert this line inside the head tags in your
 views. The easiest way to do this is to insert it once inside your
 default or application-wide layout. Make sure you are only rendering
 it if the user is logged in, otherwise the plugin will attempt to force
-non-existent sessions to timeout, wreaking havoc:
+non-existent sessions to timeout, wreaking havoc. If you insert it in the
+body tag, it will not nicely with Turbolinks:
 
-    <body>
+    <head>
       <% if current_user %>
         <%= auto_session_timeout_js %>
       <% end %>
-    </body>
+    </head>
 
 You need to setup two actions: one to return the session status and
 another that runs when the session times out. You can use the default
@@ -59,7 +64,7 @@ actions entirely with your own custom code:
       def active
        render_session_status
       end
-      
+
       def timeout
         render_session_timeout
       end
